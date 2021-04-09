@@ -9,12 +9,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">User</h1>
+                    <h1 class="m-0">Edit User {{ $user->email }}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Edit User </li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.user.index')}}">User</a></li>
+                        <li class="breadcrumb-item active">Edit User</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -22,7 +23,7 @@
     </div>
     <!-- /.content-header -->
 
-    <form id="admin-edit-form" class="admin-form" action="{{ route('admin.user.update',['user'=>$user->id]) }}" method="post">
+    <form id="admin-form" class="admin-form" action="{{ route('admin.user.update',['user'=>$user->id]) }}" method="post">
         @csrf
         @method('PUT')
         <!-- Main content -->
@@ -33,7 +34,7 @@
                     <div class="col-md-10">
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title">General Elements</h3>
+                                <h3 class="card-title">Form Fields Data</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">

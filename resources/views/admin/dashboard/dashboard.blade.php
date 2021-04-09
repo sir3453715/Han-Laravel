@@ -12,20 +12,13 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard </li>
+                        <li class="breadcrumb-item active">Home </li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-{{--    <?php if (!isset($accessToken)) :--}}
-{{--    $loginUrl = $helper->getLoginUrl('https://dev.meihao.shopping/admin/dashboard', $permissions); //取得 Facebook 登入網址--}}
-{{--    ?>--}}
-{{--    <h3><a href="<?php echo $loginUrl; ?>"><button type="button" class="btn-primary">登入FB</button></a></h3>--}}
-{{--    <?php endif; ?>--}}
-
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -51,7 +44,6 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>2</h3>
-
                             <p>Notice Board</p>
                         </div>
                         <div class="icon">
@@ -66,7 +58,6 @@
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>3</h3>
-
                             <p>Notice Board</p>
                         </div>
                         <div class="icon">
