@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Menu;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActionLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
@@ -18,16 +20,16 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        $type_array = ['customer','manager','administrator'];
         $queried = array();
         if(Auth::user()->hasRole('administrator')){
             $roles = Role::orderBy('id','ASC')
                 ->get();
-            $type_array = ['manager','administrator'];
         }else{
             $roles = Role::where('name','!=','administrator')
                 ->orderBy('id','ASC')
                 ->get();
-            $type_array = ['manager'];
+            unset($type_array['administrator']);
         }
         if($request->get('type') != 0) {
             $role = Role::find($request->get('type'));
@@ -43,7 +45,7 @@ class UsersController extends Controller
             $queried['email'] = $request->get('email');
         }
 
-        $users = $users->get();
+        $users = $users->paginate(20);
         return view('admin.user.user',[
             'users'=>$users,
             'roles' => $roles,
@@ -58,7 +60,11 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::orderBy('id','DESC')
+            ->get();
+        return view('admin.user.createUser',[
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -69,6 +75,40 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->toArray(),[
+            'name'=>'required',
+            'password'=>'required|min:8',
+            're_password' => 'required|min:8|same:password',
+            'email'=>'required|email|unique:users',
+        ]);
+        if($validator->fails()){
+            $message = '<ul>';
+            foreach ($validator->errors()->all() as $text){
+                $message .= '<li>'.$text.'</li>';
+            }
+            $message .= '</ul>';
+            return back()->withInput()->with('error',$message);
+        }else{
+            $data=[
+                'name'=>$request->get('name'),
+                'email'=>$request->get('email'),
+                'password'=>Hash::make($request->get('password')),
+            ];
+            $user = User::create($data);
+            ActionLog::create_log($user,'create');
+
+            if($request->get('users_role')){
+                $role = Role::find($request->get('users_role'));
+                if(!$user) {
+                    $user->assignRole($role->name);
+                }else{
+                    $user->syncRoles($role->name);
+                }
+            }
+
+
+            return redirect(route('admin.user.index'))->with('message', '帳號已建立!');
+        }
         //
     }
 
@@ -127,7 +167,9 @@ class UsersController extends Controller
             }
         }
         $user->fill($data);
+        ActionLog::create_log($user);
         $user->save();
+
         if($request->get('users_role')){
             $role = Role::find($request->get('users_role'));
             if(!$user) {
@@ -137,7 +179,8 @@ class UsersController extends Controller
             }
         }
 
-        return redirect(route('admin.user.index'))->with('message', '帳號資料已更新!');
+
+        return redirect(route('admin.user.index'))->with('message', '資料已更新!');
 
         //
     }
@@ -151,5 +194,13 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        if($user){
+            $user->delete();
+            ActionLog::create_log($user,'delete');
+        }
+
+        return redirect(route('admin.user.index'))->with('message', '資料已刪除!');
+
     }
 }
