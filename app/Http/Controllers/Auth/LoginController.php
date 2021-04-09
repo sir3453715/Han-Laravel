@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActionLog;
+use App\Models\LoginLog;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -46,4 +51,38 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    protected function authenticated(Request $request, $user)//登入成功
+    {
+        $data = [
+            'user_id'=>$user->id,
+            'IP'=>$request->getClientIp(),
+            'result'=>'success',
+        ];
+        LoginLog::create($data);
+
+        $action_logs = ActionLog::where('change_column','[]'); // 登入立即清除空白紀錄
+        if($action_logs)
+            $action_logs->delete();
+
+
+    }
+    protected  function sendFailedLoginResponse(Request $request)//登入失敗
+    {
+        $user = User::where('email',$request->get('email'))->first();
+        if($user){
+            $data = [
+                'user_id'=>$user->id,
+                'IP'=>$request->getClientIp(),
+                'result'=>'failed Password Wrong',
+            ];
+            LoginLog::create($data);
+        }
+
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
+    }
+
+
+
 }
