@@ -52,6 +52,12 @@ return[
             'displayName'  => 'adminRouteList',
             'assignTo'     => [],
         ],
+        [
+            //網站歷史紀錄
+            'name'         => 'admin web log',
+            'displayName'  => 'adminWebLog',
+            'assignTo'     => ['manager'],
+        ],
     ],
     // 預設的設定值
     'options' => [
