@@ -26,6 +26,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 /**
  * 後台 Route
  */
+Route::get('admin-login','Admin\AdminController@loginPage')->name('admin-login');//後台登入頁
 
 Route::group(['prefix'=>'admin', 'middleware' => ['web', 'admin.area'],'as'=>'admin.'],function (){
     /** 首頁*/
@@ -40,6 +41,7 @@ Route::group(['prefix'=>'admin', 'middleware' => ['web', 'admin.area'],'as'=>'ad
         Artisan::call('view:clear');
         return redirect()->back()->with('message', '快取已清除!');
     })->name('clear-cache');
-
-
 });
+
+
+
