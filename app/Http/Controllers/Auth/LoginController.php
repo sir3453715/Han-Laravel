@@ -65,6 +65,10 @@ class LoginController extends Controller
             $action_logs->delete();
 
 
+        if($request->get('login_by') == 'admin'){ //判斷是否透過後台登入
+            return redirect('/admin');
+        }
+
     }
     protected  function sendFailedLoginResponse(Request $request)//登入失敗
     {

@@ -20,4 +20,14 @@ class AdminController extends Controller
         }
     }
 
+    public function loginPage()
+    {
+        if( Auth::check()){
+            return redirect(route('admin.index'));
+        }else{
+            return view('admin.loginPage');
+
+        }
+    }
+
 }
