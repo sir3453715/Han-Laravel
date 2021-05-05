@@ -4,6 +4,9 @@ import slick from 'slick-carousel';
 require('./template/adminlte');
 
 $(() => {
+    /**
+     * 全後台基礎JS 宣告
+     */
     $( document ).ready(function() {
         if($('.custom-editor').length){
             $('.custom-editor').summernote({
@@ -15,9 +18,14 @@ $(() => {
         $('.select2').select2({
             allowClear: true
         });
-
+        $('.table').DataTable({
+            responsive: true,
+            paging: false,
+            searching: false,
+            info: false,
+            "ordering" : false,
+        });
     });
-
 
     //驗證資料是否有必填
     let $form = $('#admin-form');
