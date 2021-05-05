@@ -1,10 +1,6 @@
 @extends('admin.layouts.app')
 
-{{--@section('title', 'System Status')--}}
-
 @section('admin-page-content')
-
-
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -101,3 +97,4 @@
         </div>
     </section>
 @endsection
+

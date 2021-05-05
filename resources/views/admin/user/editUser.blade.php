@@ -1,7 +1,5 @@
 @extends('admin.layouts.app')
 
-{{--@section('title', 'System Status')--}}
-
 @section('admin-page-content')
     @inject('html', 'App\Presenters\Html\HtmlPresenter')
 
