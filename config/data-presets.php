@@ -4,9 +4,9 @@ return[
 
     // 角色
     'roles' => [
-        ['name' => 'administrator', 'displayName' => 'administrator'],
-        ['name' => 'manager' , 'displayName' => 'Manager'],
-        ['name' => 'customer' , 'displayName' => 'Customer'],
+        ['name' => 'administrator', 'displayName' => '最高權限管理員'],
+        ['name' => 'manager' , 'displayName' => '商店管理員'],
+        ['name' => 'customer' , 'displayName' => '顧客'],
     ],
 
     'permissions'=>[
@@ -23,7 +23,7 @@ return[
             'assignTo'     => ['manager'],
         ],
         [
-            //功能項目
+            //匯入匯出
             'name'         => 'admin import export',
             'displayName'  => 'adminImportExport',
             'assignTo'     => ['manager'],
