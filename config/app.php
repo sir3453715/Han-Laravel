@@ -178,6 +178,8 @@ return [
         App\Providers\SingletonServiceProvider::class,
         App\Providers\MenuItemServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ],
 
     /*

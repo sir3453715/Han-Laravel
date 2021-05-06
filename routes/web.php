@@ -41,6 +41,14 @@ Route::group(['prefix'=>'admin', 'middleware' => ['web', 'admin.area'],'as'=>'ad
         Artisan::call('view:clear');
         return redirect()->back()->with('message', '快取已清除!');
     })->name('clear-cache');
+
+    Route::group(['prefix' => 'import-export', 'as' => 'import-export.'], function(){
+        Route::post('/import', 'Admin\Menu\ImportExportController@import')
+            ->name('import');
+        Route::post('/export', 'Admin\Menu\ImportExportController@export')
+            ->name('export');
+    });
+
 });
 
 
