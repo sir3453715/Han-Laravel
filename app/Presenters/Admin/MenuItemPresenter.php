@@ -110,7 +110,7 @@ class MenuItemPresenter
      */
     public function render()
     {
-//        $menu = app('AdminMenu')->getMenu();
+        $user = Auth::user();
         $menu = config('menu.menu_detail');
         $html = '';
         $htmlPresenter = $this->htmlPresenter;
@@ -119,7 +119,7 @@ class MenuItemPresenter
             switch($item['type']) {
                 case 'header':
                     $html .= $htmlPresenter->li([
-                        'class' => 'nav-header',
+                        'class' => 'nav-header '.'role-'.$user->roles->first()->name ,
                         'html'  => $item['title']
                     ]);
                     break;

@@ -33,7 +33,7 @@ class MenuItemServiceProvider extends ServiceProvider
 
             foreach ($menuItems as $menuItem) {
                 if($menuItem['type'] == 'item') {
-                    if(class_exists($menuItem['controller'])) {
+                    if(isset($menuItem['controller'])&&class_exists($menuItem['controller'])) {
                         $hasChildren = !empty($menuItem['children']);
                         if(!$hasChildren) {
                             $routeName = $menuItem['func_name'];
