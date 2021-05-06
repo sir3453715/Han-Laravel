@@ -23,6 +23,12 @@ return[
             'assignTo'     => ['manager'],
         ],
         [
+            //功能項目
+            'name'         => 'admin import export',
+            'displayName'  => 'adminImportExport',
+            'assignTo'     => ['manager'],
+        ],
+        [
             //會員管理
             'name'         => 'admin user',
             'displayName'  => 'adminUser',

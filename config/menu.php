@@ -29,6 +29,17 @@ return[
             'display' => '1',
             'permission' => 'admin feature',
             'controller' => Menu\FeaturesController::class,
+            'children'=>[
+                [
+                    'type' => 'item',
+                    'title' => '匯入匯出',
+                    'func_name' => 'import-export',
+                    'icon' => 'fas fa-file-excel',
+                    'display' => '1',
+                    'permission' => 'admin import export',
+                    'controller' => Menu\ImportExportController::class,
+                ],
+            ],
         ],
         [
             'type' => 'header',

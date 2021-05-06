@@ -14,7 +14,7 @@ class FeaturesController extends Controller
      */
     public function index()
     {
-        return view('admin.feature.feature');
+
     }
 
     /**
