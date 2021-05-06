@@ -25,6 +25,16 @@ $(() => {
             info: false,
             "ordering" : false,
         });
+        $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+            $('.table').DataTable({
+                responsive: true,
+                paging: false,
+                searching: false,
+                info: false,
+                destroy:true,
+                "ordering" : false,
+            });
+        });
     });
 
     //驗證資料是否有必填
